@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+    api:
+        build:
+            context: docker
+            dockerfile: development/nginx/Dockerfile
+        ports:
+            - "8080:80"
+        volumes:
+            - .:/app
+        depends_on:
+            - api-php-fpm
+
+    api-php-fpm:
+        build:
+            context: docker
+            dockerfile: development/php-fpm/Dockerfile
+        environment:
+            PHP_IDE_CONFIG: serverName=API
+        volumes:
+            - .:/app
+
+    api-php-cli:
+        build:
+            context: docker
+            dockerfile: development/php-cli/Dockerfile
+        volumes:
+            - .:/app
+
+    database:
+        image: postgres:13-alpine
+        environment:
+            POSTGRES_USER: main
+            POSTGRES_PASSWORD: main
+            POSTGRES_DB: main
+        ports: [5432:5432]
