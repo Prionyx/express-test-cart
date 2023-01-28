@@ -17,8 +17,7 @@ class CartController extends AbstractController
     public function __construct(
         ProductRepository $productRepository,
         CartManager $cartManager,
-    )
-    {
+    ) {
         $this->productRepository = $productRepository;
         $this->cartManager = $cartManager;
     }

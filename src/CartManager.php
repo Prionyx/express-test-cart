@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Controller\Dto\ProductDto;
+use App\Controller\Dto\CartProductDto;
 use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Product;
@@ -54,7 +54,7 @@ class CartManager
             $productPrice += (float)$item->getProduct()?->getPrice() * $productCount; //@todo Работа с ценами
         }
         $productsDto = array_map(static function (CartItem $item) {
-            return ProductDto::productMapping($item->getProduct());
+            return CartProductDto::productMapping($item->getProduct(), $item->getQuantity());
         }, $cart->getItems()->toArray());
 
         return ['productsCount' => $productCount, 'productsPrice' => $productPrice, 'productsList' => $productsDto];
