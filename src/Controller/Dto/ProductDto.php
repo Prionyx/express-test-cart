@@ -2,6 +2,8 @@
 
 namespace App\Controller\Dto;
 
+use App\Entity\Product;
+
 class ProductDto
 {
     public int $id;
@@ -13,5 +15,11 @@ class ProductDto
         $this->id = $id;
         $this->name = $name;
         $this->price = $price;
+    }
+
+    //@todo Вынести?
+    public static function productMapping(Product $product): ProductDto
+    {
+        return new ProductDto($product->getId(), $product->getName(), $product->getPrice());
     }
 }

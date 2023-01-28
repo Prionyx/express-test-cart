@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\Dto\ProductDto;
-use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,11 +22,5 @@ class ProductController extends AbstractController
         $products = $this->productRepository->findAll();
         $productsDto = array_map([$this, 'productMapping'], $products);
         return $this->json($productsDto);
-    }
-
-    //@todo Вынести
-    private function productMapping(Product $product): ProductDto
-    {
-        return new ProductDto($product->getId(), $product->getName(), $product->getPrice());
     }
 }
