@@ -3,32 +3,23 @@
 namespace App\Controller;
 
 use App\CartManager;
-use App\Controller\Dto\ProductDto;
-use App\Entity\Cart;
-use App\Entity\CartItem;
-use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
 {
     private ProductRepository $productRepository;
-    private CartRepository $cartRepository;
     private CartManager $cartManager;
 
     public function __construct(
         ProductRepository $productRepository,
-        CartRepository $cartRepository,
-        CartManager $cartManager
+        CartManager $cartManager,
     )
     {
-        $this->cart = new Cart();
         $this->productRepository = $productRepository;
-        $this->cartRepository = $cartRepository;
         $this->cartManager = $cartManager;
     }
 

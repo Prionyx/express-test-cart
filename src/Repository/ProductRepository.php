@@ -39,6 +39,20 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByType($value): array
+    {
+        //@todo ON ?
+        return $this->createQueryBuilder('p')
+            ->join('p.productModel', 'm')
+            ->andWhere('m.productType = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

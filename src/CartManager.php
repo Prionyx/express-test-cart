@@ -36,6 +36,7 @@ class CartManager
         return $cart;
     }
 
+    //@todo Добавить количество к каждому продукту
     #[ArrayShape([
         'productsCount' => "int",
         'productsPrice' => "float",
