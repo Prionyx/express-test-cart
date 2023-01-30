@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Cart;
 
 use App\Entity\Cart;
 use App\Entity\CartItem;
@@ -22,11 +22,14 @@ class CartManager
         $this->cartFactory = $cartFactory;
     }
 
-    //@todo Отдельно получение корзины с продуктами
-
     public function getCurrentCart(): Cart
     {
         return $this->cartSessionStorage->getCart() ?? $this->cartFactory->create();
+    }
+
+    public function getCurrentCartWithProducts(): Cart
+    {
+        return $this->cartSessionStorage->getCartWithProducts() ?? $this->cartFactory->create();
     }
 
     public function addItem(Product $product): void

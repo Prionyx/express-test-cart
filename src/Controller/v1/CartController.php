@@ -2,7 +2,7 @@
 
 namespace App\Controller\v1;
 
-use App\CartManager;
+use App\Cart\CartManager;
 use App\Repository\ProductRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +29,7 @@ class CartController extends AbstractController
     public function getCart(): JsonResponse
     {
         try {
-            $cart = $this->cartManager->getCurrentCart();
+            $cart = $this->cartManager->getCurrentCartWithProducts();
             return $this->json($cart);
         } catch (Exception $e) {
             return $this->json($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);

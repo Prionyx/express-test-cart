@@ -1,12 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Cart;
 
 use App\Entity\Cart;
 use App\Entity\CartItem;
 use App\Entity\Product;
 
-//@todo куда убрать?
 class CartFactory
 {
     public function create(): Cart
