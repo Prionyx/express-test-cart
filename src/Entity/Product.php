@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\UniqueConstraint(
@@ -24,6 +25,7 @@ class Product
     #[ORM\Column(type: Types::DECIMAL, precision: 12, scale: 2)]
     private ?string $price = null;
 
+    #[Ignore]
     #[ORM\ManyToOne(inversedBy: 'product')]
     #[ORM\JoinColumn(nullable: false)]
     private ?ProductModel $productModel = null;

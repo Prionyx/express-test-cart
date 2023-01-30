@@ -4,6 +4,7 @@ namespace App\Storage;
 
 use App\Entity\Cart;
 use App\Repository\CartRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -22,9 +23,7 @@ class CartSessionStorage
 
     public function getCart(): ?Cart
     {
-        return $this->cartRepository->findOneBy([
-            'id' => $this->getCartId(),
-        ]);
+        return $this->cartRepository->findWithProducts($this->getCartId());
     }
 
     public function setCart(Cart $cart): void

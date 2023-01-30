@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use App\Repository\CartItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: CartItemRepository::class)]
 class CartItem
 {
+    #[Ignore]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -20,6 +22,7 @@ class CartItem
     #[ORM\Column]
     private ?int $quantity = null;
 
+    #[Ignore]
     #[ORM\ManyToOne(inversedBy: 'items')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Cart $cartRef = null;
@@ -55,7 +58,7 @@ class CartItem
 
     public function equals(CartItem $item): bool
     {
-        return $this->getProduct()->getId() === $item->getProduct()->getId();
+        return $this->getProduct()?->getId() === $item->getProduct()?->getId();
     }
 
     public function getCartRef(): ?Cart
@@ -68,5 +71,11 @@ class CartItem
         $this->cartRef = $cartRef;
 
         return $this;
+    }
+
+    #[Ignore]
+    public function getTotalPrice(): float
+    {
+        return (float) $this->getProduct()?->getPrice() * $this->getQuantity();
     }
 }
